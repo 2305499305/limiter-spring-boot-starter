@@ -41,14 +41,14 @@ public class RedisOperationsRecursion {
 		this.maximumCapacity = maximumCapacity;
 	}
 
-	public void addTokens(BoundListOperations<Object, Object> boundListOperations, Integer tokenValue) {
+	public void addTokens(BoundListOperations<Object, Object> boundListOperations, Integer tokenValue, Long thisSize) {
 
-		Long currentQuantity = RedisOperationsExecution.addTokens(boundListOperations, tokenValue, maximumCapacity);
 		long thisOffset = offset.get();
-		if (maximumCapacity > currentQuantity && thisOffset > 0) {
-			Long update = thisOffset - 1;
+		if (maximumCapacity > thisSize && thisOffset > 0) {
+			long update = thisOffset - 1;
 			offset.compareAndSet(thisOffset, update);
-			addTokens(boundListOperations, tokenValue);
+			thisSize = RedisOperationsExecution.addTokens(boundListOperations, tokenValue);
+			addTokens(boundListOperations, tokenValue, thisSize);
 		} else {
 			offset.compareAndSet(thisOffset, 0);
 		}

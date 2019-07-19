@@ -11,7 +11,8 @@ Support function：
 ## Tips：
     Each time a node is restarted or added, the initial number fills redis, of course, when the capacity is not maximized.    
     Specific flow restriction parameters, please cooperate with pressure testing tools to optimize, to achieve the QPS you need.  
-    If the current limit is successful, the code block with @LimitTraffic annotation will be executed, otherwise it will not be executed to facilitate user-defined schemes, such as service protection degradation, etc.
+    If the current limit is successful, the code block with @LimitTraffic annotation will be executed, otherwise it will not be executed to facilitate user-defined schemes, such as service protection degradation, etc.  
+    In order to improve performance without strong consistency, the maximum current limiting error is -1 cluster number.  
         
 ##  Quick Start
 
@@ -20,7 +21,7 @@ Support function：
         <dependency>
             <artifactId>limiter-spring-boot-starter</artifactId>
             <groupId>com.github.thierrysquirrel</groupId>
-            <version>1.0.1-RELEASE</version>
+            <version>1.0.2-RELEASE</version>
         </dependency>
 ```
 

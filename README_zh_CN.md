@@ -11,7 +11,8 @@
 ## 提示：
     每次重启或新增一个节点,初始数量会向redis填充,当然,这是在容量未达到最大情况下  
     具体流量限制参数,请配合压力测试工具来调优,达到您所需要的QPS  
-    限流成功,则执行含有@LimitTraffic注解代码块,否则不执行,便于用户自定义方案,如服务保护降级等操作
+    限流成功,则执行含有@LimitTraffic注解代码块,否则不执行,便于用户自定义方案,如服务保护降级等操作  
+    为提高性能,不采取强一致性,限流误差最大值为：集群数量-1  
         
 ##  Quick Start
 
@@ -20,7 +21,7 @@
         <dependency>
             <artifactId>limiter-spring-boot-starter</artifactId>
             <groupId>com.github.thierrysquirrel</groupId>
-            <version>1.0.1-RELEASE</version>
+            <version>1.0.2-RELEASE</version>
         </dependency>
 ```
 

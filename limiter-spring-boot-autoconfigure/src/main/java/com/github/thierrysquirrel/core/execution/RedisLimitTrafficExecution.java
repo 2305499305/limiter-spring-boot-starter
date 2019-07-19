@@ -53,16 +53,18 @@ public class RedisLimitTrafficExecution extends AbstractAddTokenThread {
 		TokenLimitedTrafficConfigure redisExecutionConfigure = TokenLimitedTrafficConfigureFactory.getRedisExecutionConfigure(method, limitTraffic);
 		RedisOperationsRecursion redisOperationsRecursion = RedisOperationsRecursionFactory.getRedisOperationsRecursion(redisExecutionConfigure);
 		BoundListOperations<Object, Object> boundListOperations = RedisOperationsFactory.getBoundListOperations(redisTemplate, redisExecutionConfigure.getTokenKey());
-		redisOperationsRecursion.addTokens(boundListOperations, redisExecutionConfigure.getTokenValue());
-
+		Long thisSize = boundListOperations.size();
+		redisOperationsRecursion.addTokens(boundListOperations, redisExecutionConfigure.getTokenValue(), thisSize);
 		BoundValueOperations<Object, Object> boundValueOperations = RedisOperationsFactory.getBoundValueOperations(redisTemplate, redisExecutionConfigure.getLockKey());
+
 		boolean condition = Boolean.TRUE;
 		while (condition) {
 			Boolean lock = RedisOperationsExecution.lock(boundValueOperations, redisExecutionConfigure.getLockValue(), redisExecutionConfigure.getIntervalTime(), redisExecutionConfigure.getTimeUnit());
 			if (lock) {
 				long thisOffset = redisOperationsRecursion.getOffset().get() + redisExecutionConfigure.getAddedQuantity();
 				redisOperationsRecursion.setOffset(new AtomicLong(thisOffset));
-				redisOperationsRecursion.addTokens(boundListOperations, redisExecutionConfigure.getTokenValue());
+				thisSize = boundListOperations.size();
+				redisOperationsRecursion.addTokens(boundListOperations, redisExecutionConfigure.getTokenValue(), thisSize);
 				try {
 					Thread.sleep(redisExecutionConfigure.getTimeUnit().toMillis(redisExecutionConfigure.getIntervalTime()));
 				} catch (InterruptedException e) {

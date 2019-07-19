@@ -40,12 +40,8 @@ public class RedisOperationsExecution {
 		return boundValueOperations.setIfAbsent(lockValue, timeout, timeUnit);
 	}
 
-	public static Long addTokens(BoundListOperations<Object, Object> boundListOperations, Integer tokenValue, Long maximumCapacity) {
-		Long thisTokensSize = boundListOperations.size();
-		if (thisTokensSize < maximumCapacity) {
-			return boundListOperations.leftPush(tokenValue);
-		}
-		return thisTokensSize;
+	public static Long addTokens(BoundListOperations<Object, Object> boundListOperations, Integer tokenValue) {
+		return boundListOperations.leftPush(tokenValue);
 	}
 
 	public static Object getToken(BoundListOperations<Object, Object> boundListOperations) {
