@@ -29,8 +29,8 @@ Support function：
  
  ```properties
  ## application.properties
-spring.redis.host= #您redis的地址
-spring.redis.port= #您redis的端口号
+spring.redis.host= #Your redis address
+spring.redis.port= #The port number of your redis
  ```
  
 #   Start limiter
