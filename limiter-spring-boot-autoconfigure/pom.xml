@@ -11,6 +11,9 @@
 
     <artifactId>limiter-spring-boot-autoconfigure</artifactId>
 
+    <name>limiter-spring-boot-autoconfigure</name>
+    <description>limiter-spring-boot-autoconfigure</description>
+
     <dependencies>
         <dependency>
             <groupId>com.google.guava</groupId>

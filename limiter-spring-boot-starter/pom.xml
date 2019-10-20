@@ -11,6 +11,9 @@
 
     <artifactId>limiter-spring-boot-starter</artifactId>
 
+    <name>limiter-spring-boot-starter</name>
+    <description>limiter-spring-boot-starter</description>
+
     <dependencies>
         <dependency>
             <groupId>org.springframework.boot</groupId>
